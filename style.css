@@ -22,11 +22,11 @@ body {
   flex-direction: column;
   min-width: 400px;
   min-height: 600px;
-  gap: 10px;
-  padding: 20px;
-  border-right: 10px outset #B0B0B0;
-  border-bottom: 10px outset #B0B0B0;
-  border-radius: 20px;
+  gap: 5px;
+  padding: 25px;
+  border-right: 15px outset #B0B0B0;
+  border-bottom: 15px outset #B0B0B0;
+  border-radius: 30px;
   filter: drop-shadow(10px 10px 10px #000000);
 }
 
@@ -36,13 +36,13 @@ body {
   font-family: monospace;
   display: flex;
   flex-direction: column;
-  min-height: 120px;
+  min-height: 145px;
   min-width: 100%;
   padding: 10px 20px;
   border-top: 5px inset #B0B0B0;
   border-left: 5px inset #B0B0B0;
-  border-radius: 10px;
-  margin-bottom: 30px;
+  border-radius: 20px;
+  margin-bottom: 65px;
 }
 
 .upper {
@@ -63,7 +63,7 @@ body {
 .row {
   display: flex;
   flex: 1;
-  gap: 10px;
+  gap: 5px;
 }
 
 .button {
@@ -71,6 +71,7 @@ body {
   font-family: sans-serif;
   font-size: 1.5em;
   font-weight: bold;
+  user-select: none;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -78,5 +79,13 @@ body {
   border-right: 5px outset #707070;
   border-bottom: 5px outset #707070;
   border-radius: 10px;
+}
+
+.pressed {
+  border: none;
+  border-top: 3px solid #C0C0C0;
+  border-left: 3px solid #C0C0C0;
+  border-right: 2px outset #707070;
+  border-bottom: 2px outset #707070;
 }
  
