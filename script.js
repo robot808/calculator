@@ -14,6 +14,10 @@ function divide (numberA, numberB) {
   return numberA / numberB;
 }
 
+let operandA = "0";
+let operandB = "0";
+let operator = "";
+
 const html = document.documentElement;
 const buttons = document.querySelectorAll(".button");
 
