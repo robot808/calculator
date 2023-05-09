@@ -1,3 +1,22 @@
+function operate (stringA, stringB, stringOperator) {
+  let result;
+  switch (stringOperator) {
+    case "+":
+      result = add(Number(stringA), Number(stringB));
+      break;
+    case "-":
+      result = subtract(Number(stringA), Number(stringB));
+      break;
+    case "*":
+      result = multiply(Number(stringA), Number(stringB));
+      break;
+    case "/":
+      result = divide(Number(stringA), Number(stringB));
+      break;
+  }
+  return result.toString();
+}
+
 function add (numberA, numberB) {
   return numberA + numberB;
 }
