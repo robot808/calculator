@@ -33,6 +33,16 @@ function divide (numberA, numberB) {
   return numberA / numberB;
 }
 
+function populateDisplay () {
+  const lowerDisplay = document.querySelector(".lower");
+  let outputText = operandA;
+  if (operator) {
+    outputText += ` ${operator} `;
+    if (operandB) outputText += operandB;
+  }
+  lowerDisplay.textContent = outputText;
+}
+
 let operandA = "0";
 let operandB = "0";
 let operator = "";
@@ -51,3 +61,5 @@ html.addEventListener ("mouseup", () => {
     button.classList.remove("pressed");
   });
 });
+
+populateDisplay();
