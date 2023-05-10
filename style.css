@@ -20,8 +20,9 @@ body {
   background: #C0C0C0;
   display: flex;
   flex-direction: column;
-  min-width: 400px;
-  min-height: 600px;
+  flex: 0 0 auto;
+  width: 400px;
+  height: 600px;
   gap: 5px;
   padding: 25px;
   border-right: 15px outset #B0B0B0;
@@ -36,8 +37,9 @@ body {
   font-family: monospace;
   display: flex;
   flex-direction: column;
-  min-height: 145px;
-  min-width: 100%;
+  flex: 0 0 auto;
+  width: 335px;
+  height: 145px;
   padding: 10px 20px;
   border-top: 5px inset #B0B0B0;
   border-left: 5px inset #B0B0B0;
@@ -47,22 +49,29 @@ body {
 
 .upper {
   font-size: 2em;
+  white-space: nowrap;
+  overflow: hidden;
   display: flex;
   align-items: center;
-  flex: 1;
+  flex: 0 0 auto;
+  height: 40px;
 }
 
 .lower {
   font-size: 4em;
+  white-space: nowrap;
+  overflow: hidden;
   display: flex;
   justify-content: right;
   align-items: flex-end;
-  flex: 2;
+  flex: 0 0 auto;
+  height: 80px;
 }
 
 .row {
   display: flex;
-  flex: 1;
+  flex: 0 0 auto;
+  height: 60px;
   gap: 5px;
 }
 
@@ -75,7 +84,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex: 1;
+  flex: 0 0 auto;
+  width: 80px;
   border-right: 5px outset #707070;
   border-bottom: 5px outset #707070;
   border-radius: 10px;
