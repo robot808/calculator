@@ -130,6 +130,15 @@ function format (number) {
   return formattedNumber;
 }
 
+//create output string from previous operation and populate to upper display
+function populateUpperDisplay () {
+  const upperDisplay = document.querySelector(".upper");
+  const outputText = 
+    `${previousOperands[0]} ${previousOperator} ${previousOperands[1]}`
+  ;
+  upperDisplay.textContent = outputText;
+}
+
 // create output string from operands and operator and populate to lower display
 function populateLowerDisplay () {
   const lowerDisplay = document.querySelector(".lower");
@@ -166,8 +175,9 @@ const deleteButton = document.querySelector(".delete");
 const equalsButton = document.querySelector(".equals");
 const clearButton = document.querySelector(".clear");
 
-// update lower display any time anyting is clicked
+// update upper and lower displays any time anything is clicked
 html.addEventListener("click", populateLowerDisplay);
+html.addEventListener("click", populateUpperDisplay);
 
 // for button up animation
 html.addEventListener ("mouseup", () => {
