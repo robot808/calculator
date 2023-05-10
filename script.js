@@ -86,6 +86,8 @@ function operate (stringA, stringB, stringOperator) {
       result = divide(Number(stringA), Number(stringB));
       break;
   }
+  // truncate result if it won't fit in the display
+  result = format(result);
   return result.toString();
 }
 
@@ -103,6 +105,29 @@ function multiply (numberA, numberB) {
 
 function divide (numberA, numberB) {
   return numberA / numberB;
+}
+
+// format output to fit in display
+function format (number) {
+  if (number.toString().length < 8) return number; // no need to format
+
+  let formattedNumber;
+  // big integers
+  if (Number.isInteger(number)) {
+    formattedNumber = number.toExponential();
+    if (formattedNumber.length > 10) {
+      formattedNumber = number.toPrecision(3);
+    }
+  }
+  // big non-integers
+  else if (number > 100000000) {
+    formattedNumber = number.toPrecision(3);
+  }
+  // everything else
+  else {
+    formattedNumber = number.toFixed(6);
+  }
+  return formattedNumber;
 }
 
 // create output string from operands and operator and populate to lower display
