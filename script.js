@@ -1,3 +1,4 @@
+// call mathematical function based on chosen operator
 function operate (stringA, stringB, stringOperator) {
   let result;
   switch (stringOperator) {
@@ -33,10 +34,12 @@ function divide (numberA, numberB) {
   return numberA / numberB;
 }
 
+// return the index of the current operand
 function getCurrentOperand () {
   return operator ? 1 : 0;
 }
 
+// add digit button's number to current operand string
 function setOperand (event) {
   const digit = event.target.textContent;
   const index = getCurrentOperand();
@@ -48,13 +51,21 @@ function setOperator (event) {
   operator = event.target.textContent;
 }
 
+// add a decimal point to the current operand
 function setDecimal () {
   const index = getCurrentOperand();
-  if (operands[index].includes(".")) return;
+  if (operands[index].includes(".")) return; // check for existing decimal
   else if (operands[index]) operands[index] += ".";
-  else operands[index] += "0.";
+  else operands[index] += "0."; // add leading zero to blank operand strings
 }
 
+// switch the current operand's sign
+function negateOperand () {
+  const index = getCurrentOperand();
+  operands[index] = (0 - Number(operands[index])).toString();  
+}
+
+// create output string from operands and operator and populate to lower display
 function populateLowerDisplay () {
   const lowerDisplay = document.querySelector(".lower");
   let outputText = operands[0];
@@ -73,6 +84,7 @@ const buttons = document.querySelectorAll(".button");
 const digits = document.querySelectorAll(".digit");
 const operators = document.querySelectorAll(".operator");
 const decimal = document.querySelector(".decimal");
+const negate = document.querySelector(".negate");
 
 html.addEventListener("click", populateLowerDisplay);
 
@@ -98,4 +110,6 @@ operators.forEach(operator => {
 
 decimal.addEventListener("click", setDecimal);
 
-populateLowerDisplay();
+negate.addEventListener("click", negateOperand);
+
+populateLowerDisplay(); // initial display state
