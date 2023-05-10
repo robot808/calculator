@@ -37,6 +37,11 @@ function setOperator (event) {
   operator = event.target.textContent;
 }
 
+function setPercent () {
+  if(operands[1]) determineOperation(); // perform any pending operation first
+  operands[0] = format(operands[0]/100).toString();
+}
+
 // determine operation based on stored operands and operator
 function determineOperation () {
   // if user deletes initial operand, reset to zero
@@ -109,25 +114,8 @@ function divide (numberA, numberB) {
 
 // format output to fit in display
 function format (number) {
-  if (number.toString().length < 8) return number; // no need to format
-
-  let formattedNumber;
-  // big integers
-  if (Number.isInteger(number)) {
-    formattedNumber = number.toExponential();
-    if (formattedNumber.length > 10) {
-      formattedNumber = number.toPrecision(3);
-    }
-  }
-  // big non-integers
-  else if (number > 100000000) {
-    formattedNumber = number.toPrecision(3);
-  }
-  // everything else
-  else {
-    formattedNumber = number.toFixed(6);
-  }
-  return formattedNumber;
+  if (number.toString().length <= 8) return number; // no need to format
+  return number.toPrecision(3);
 }
 
 //create output string from previous operation and populate to upper display
@@ -172,6 +160,7 @@ const operators = document.querySelectorAll(".operator");
 const decimalButton = document.querySelector(".decimal");
 const negateButton = document.querySelector(".negate");
 const deleteButton = document.querySelector(".delete");
+const percentButton = document.querySelector(".percent");
 const equalsButton = document.querySelector(".equals");
 const clearButton = document.querySelector(".clear");
 
@@ -204,6 +193,7 @@ operators.forEach(operator => {
 decimalButton.addEventListener("click", setDecimal);
 negateButton.addEventListener("click", negateOperand);
 deleteButton.addEventListener("click", deleteDigit);
+percentButton.addEventListener("click", setPercent);
 equalsButton.addEventListener("click", determineOperation);
 clearButton.addEventListener("click", clearAll);
 
