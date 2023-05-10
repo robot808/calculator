@@ -1,3 +1,10 @@
+// display result of previous operation as new operand
+function enumerateResult () {
+  operands[0] = operate(operands[0], operands[1], operator);
+  operands[1] = "";
+  operator = "";
+}
+
 // call mathematical function based on chosen operator
 function operate (stringA, stringB, stringOperator) {
   let result;
@@ -99,6 +106,7 @@ const decimalButton = document.querySelector(".decimal");
 const negateButton = document.querySelector(".negate");
 const clearButton = document.querySelector(".clear");
 const deleteButton = document.querySelector(".delete");
+const equalsButton = document.querySelector(".equals");
 
 html.addEventListener("click", populateLowerDisplay);
 
@@ -126,5 +134,6 @@ decimalButton.addEventListener("click", setDecimal);
 negateButton.addEventListener("click", negateOperand);
 clearButton.addEventListener("click", clearAll);
 deleteButton.addEventListener("click", deleteDigit);
+equalsButton.addEventListener("click", enumerateResult);
 
 populateLowerDisplay(); // initial display state
