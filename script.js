@@ -65,6 +65,18 @@ function negateOperand () {
   operands[index] = (0 - Number(operands[index])).toString();  
 }
 
+// delete last digit from current operand string
+function deleteDigit () {
+  const index = getCurrentOperand();
+  operands[index] = operands[index].slice(0, -1);
+}
+
+function clearAll () {
+  operands[0] = "0";
+  operands[1] = "";
+  operator = "";
+}
+
 // create output string from operands and operator and populate to lower display
 function populateLowerDisplay () {
   const lowerDisplay = document.querySelector(".lower");
@@ -83,8 +95,10 @@ const html = document.documentElement;
 const buttons = document.querySelectorAll(".button");
 const digits = document.querySelectorAll(".digit");
 const operators = document.querySelectorAll(".operator");
-const decimal = document.querySelector(".decimal");
-const negate = document.querySelector(".negate");
+const decimalButton = document.querySelector(".decimal");
+const negateButton = document.querySelector(".negate");
+const clearButton = document.querySelector(".clear");
+const deleteButton = document.querySelector(".delete");
 
 html.addEventListener("click", populateLowerDisplay);
 
@@ -108,8 +122,9 @@ operators.forEach(operator => {
   operator.addEventListener("click", setOperator);
 });
 
-decimal.addEventListener("click", setDecimal);
-
-negate.addEventListener("click", negateOperand);
+decimalButton.addEventListener("click", setDecimal);
+negateButton.addEventListener("click", negateOperand);
+clearButton.addEventListener("click", clearAll);
+deleteButton.addEventListener("click", deleteDigit);
 
 populateLowerDisplay(); // initial display state
