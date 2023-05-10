@@ -38,14 +38,14 @@ function getCurrentOperand () {
 }
 
 function setOperand (event) {
-  const digit = event.target.id;
+  const digit = event.target.textContent;
   const index = getCurrentOperand();
   if (operands[index] === "0") operands[index] = digit;
   else operands[index] += digit;
 }
 
 function setOperator (event) {
-  operator = event.target.id;
+  operator = event.target.textContent;
 }
 
 function populateLowerDisplay () {
