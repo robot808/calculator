@@ -48,6 +48,13 @@ function setOperator (event) {
   operator = event.target.textContent;
 }
 
+function setDecimal () {
+  const index = getCurrentOperand();
+  if (operands[index].includes(".")) return;
+  else if (operands[index]) operands[index] += ".";
+  else operands[index] += "0.";
+}
+
 function populateLowerDisplay () {
   const lowerDisplay = document.querySelector(".lower");
   let outputText = operands[0];
@@ -65,6 +72,7 @@ const html = document.documentElement;
 const buttons = document.querySelectorAll(".button");
 const digits = document.querySelectorAll(".digit");
 const operators = document.querySelectorAll(".operator");
+const decimal = document.querySelector(".decimal");
 
 html.addEventListener("click", populateLowerDisplay);
 
@@ -87,5 +95,7 @@ digits.forEach(digit => {
 operators.forEach(operator => {
   operator.addEventListener("click", setOperator);
 });
+
+decimal.addEventListener("click", setDecimal);
 
 populateLowerDisplay();
