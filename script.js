@@ -1,11 +1,75 @@
-// display result of previous operation as new operand
-function enumerateResult () {
+// add clicked digit button's number to current operand string
+function setOperand (event) {
+  const digit = event.target.textContent;
+  const index = getCurrentOperand();
+  if (operands[index] === "0") operands[index] = digit;
+  else operands[index] += digit;
+}
+
+// add a decimal point to the current operand
+function setDecimal () {
+  const index = getCurrentOperand();
+  if (operands[index].includes(".")) return; // check for existing decimal
+  else if (operands[index]) operands[index] += ".";
+  else operands[index] += "0."; // add leading zero to blank operand strings
+}
+
+// switch the current operand's sign
+function negateOperand () {
+  const index = getCurrentOperand();
+  operands[index] = (0 - Number(operands[index])).toString();  
+}
+
+// delete last digit from current operand string
+function deleteDigit () {
+  const index = getCurrentOperand();
+  operands[index] = operands[index].slice(0, -1);
+}
+
+// return the index of the current operand
+function getCurrentOperand () {
+  return operator ? 1 : 0;
+}
+
+// store operation based on clicked operation button
+function setOperator (event) {
+  if(operands[1]) determineOperation(); // perform any pending operation first
+  operator = event.target.textContent;
+}
+
+// determine operation based on stored operands and operator
+function determineOperation () {
+  // if user deletes initial operand, reset to zero
+  if (!operands[0]) operands[0] = "0";
+  
+  // if no operator is provided, continue to perform previous operation
+  if (!operator) {
+    if (!previousOperator) return; // not enough data to perform operation
+    else {
+      operator = previousOperator;
+      operands[1] = previousOperands[1];
+    }
+  }
+  
+  // if only one operand provided, use it for both operands
+  if (!operands[1]) operands[1] = operands[0];
+
+  enumerateResult();
+}
+
+// perform operation and ready result to be displayed
+function enumerateResult() {
+  // keep track of previous operation data
+  for (let i = 0; i < 2; i++) previousOperands[i] = operands[i];
+  previousOperator = operator;
+
+  // store result as first operand and clear second operand and operator
   operands[0] = operate(operands[0], operands[1], operator);
   operands[1] = "";
   operator = "";
 }
 
-// call mathematical function based on chosen operator
+// call mathematical function based on operator
 function operate (stringA, stringB, stringOperator) {
   let result;
   switch (stringOperator) {
@@ -41,49 +105,6 @@ function divide (numberA, numberB) {
   return numberA / numberB;
 }
 
-// return the index of the current operand
-function getCurrentOperand () {
-  return operator ? 1 : 0;
-}
-
-// add digit button's number to current operand string
-function setOperand (event) {
-  const digit = event.target.textContent;
-  const index = getCurrentOperand();
-  if (operands[index] === "0") operands[index] = digit;
-  else operands[index] += digit;
-}
-
-function setOperator (event) {
-  operator = event.target.textContent;
-}
-
-// add a decimal point to the current operand
-function setDecimal () {
-  const index = getCurrentOperand();
-  if (operands[index].includes(".")) return; // check for existing decimal
-  else if (operands[index]) operands[index] += ".";
-  else operands[index] += "0."; // add leading zero to blank operand strings
-}
-
-// switch the current operand's sign
-function negateOperand () {
-  const index = getCurrentOperand();
-  operands[index] = (0 - Number(operands[index])).toString();  
-}
-
-// delete last digit from current operand string
-function deleteDigit () {
-  const index = getCurrentOperand();
-  operands[index] = operands[index].slice(0, -1);
-}
-
-function clearAll () {
-  operands[0] = "0";
-  operands[1] = "";
-  operator = "";
-}
-
 // create output string from operands and operator and populate to lower display
 function populateLowerDisplay () {
   const lowerDisplay = document.querySelector(".lower");
@@ -95,8 +116,20 @@ function populateLowerDisplay () {
   lowerDisplay.textContent = outputText;
 }
 
+// reset calculator state to default
+function clearAll () {
+  operands[0] = "0";
+  operands[1] = "";
+  operator = "";
+  previousOperands[0] = "";
+  previousOperands[1] = "";
+  previousOperator = "";
+}
+
 let operands = ["0", ""]
+let previousOperands = ["", ""];
 let operator = "";
+let previousOperator = "";
 
 const html = document.documentElement;
 const buttons = document.querySelectorAll(".button");
@@ -104,18 +137,21 @@ const digits = document.querySelectorAll(".digit");
 const operators = document.querySelectorAll(".operator");
 const decimalButton = document.querySelector(".decimal");
 const negateButton = document.querySelector(".negate");
-const clearButton = document.querySelector(".clear");
 const deleteButton = document.querySelector(".delete");
 const equalsButton = document.querySelector(".equals");
+const clearButton = document.querySelector(".clear");
 
+// update lower display any time anyting is clicked
 html.addEventListener("click", populateLowerDisplay);
 
+// for button up animation
 html.addEventListener ("mouseup", () => {
   buttons.forEach(button => {
     button.classList.remove("pressed");
   });
 });
 
+// for button down animation
 buttons.forEach(button => {
   button.addEventListener("mousedown", () => {
     button.classList.add("pressed");
@@ -132,8 +168,8 @@ operators.forEach(operator => {
 
 decimalButton.addEventListener("click", setDecimal);
 negateButton.addEventListener("click", negateOperand);
-clearButton.addEventListener("click", clearAll);
 deleteButton.addEventListener("click", deleteDigit);
-equalsButton.addEventListener("click", enumerateResult);
+equalsButton.addEventListener("click", determineOperation);
+clearButton.addEventListener("click", clearAll);
 
 populateLowerDisplay(); // initial display state
