@@ -17,7 +17,7 @@ body {
 }
 
 #calculator {
-  background: #C0C0C0;
+  background: beige;
   display: flex;
   flex-direction: column;
   flex: 0 0 auto;
@@ -25,15 +25,15 @@ body {
   height: 600px;
   gap: 5px;
   padding: 25px;
-  border-right: 15px outset #B0B0B0;
-  border-bottom: 15px outset #B0B0B0;
+  border-right: 15px outset #c4c4b0;
+  border-bottom: 15px outset #c4c4b0;
   border-radius: 30px;
-  filter: drop-shadow(10px 10px 10px #000000);
+  filter: drop-shadow(10px 10px 10px black);
 }
 
 .display {
-  background: #000000;
-  color: #FFFFFF;
+  background: black;
+  color: lime;
   font-family: monospace;
   display: flex;
   flex-direction: column;
@@ -41,10 +41,10 @@ body {
   width: 335px;
   height: 145px;
   padding: 10px 20px;
-  border-top: 5px inset #B0B0B0;
-  border-left: 5px inset #B0B0B0;
+  border-top: 5px inset #c4c4b0;
+  border-left: 5px inset #c4c4b0;
   border-radius: 20px;
-  margin-bottom: 65px;
+  margin-bottom: 5px;
 }
 
 .upper {
@@ -68,6 +68,20 @@ body {
   height: 80px;
 }
 
+.logo {
+  color: yellow;
+  font-family: monospace;
+  font-size: 2em;
+  font-style: italic;
+  font-weight: bold;
+  text-shadow: 2px 2px 1px crimson, 1px 1px 4px black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  margin: 10px 0px;
+}
+
 .row {
   display: flex;
   flex: 0 0 auto;
@@ -76,7 +90,7 @@ body {
 }
 
 .button {
-  background: #808080;
+  background: #939384;
   font-family: sans-serif;
   font-size: 1.5em;
   font-weight: bold;
@@ -86,16 +100,34 @@ body {
   align-items: center;
   flex: 0 0 auto;
   width: 80px;
-  border-right: 5px outset #707070;
-  border-bottom: 5px outset #707070;
+  border-right: 5px outset #626258;
+  border-bottom: 5px outset #626258;
   border-radius: 10px;
 }
 
+.clear,
+.delete {
+  background: crimson;
+  border-color: #b01030;
+}
+
+.operator,
+.percent {
+  background: turquoise;
+  border-color: #33b3a6;
+}
+
+.equals {
+  background: #00e000;
+  border-color: #00b300;
+}
+
 .pressed {
-  border: none;
-  border-top: 3px solid #C0C0C0;
-  border-left: 3px solid #C0C0C0;
-  border-right: 2px outset #707070;
-  border-bottom: 2px outset #707070;
+  border-top: 3px solid antiquewhite;
+  border-left: 3px solid antiquewhite;
+  border-right-width: 2px;
+  border-right-style: outset;
+  border-bottom-width: 2px;
+  border-bottom-style: outset;
 }
  
