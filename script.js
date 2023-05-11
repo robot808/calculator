@@ -91,6 +91,10 @@ function operate (stringA, stringB, stringOperator) {
       result = divide(Number(stringA), Number(stringB));
       break;
   }
+
+  //display error message if operation failed
+  if (!result) return "ERROR!";
+
   // truncate result if it won't fit in the display
   result = format(result);
   return result.toString();
@@ -109,6 +113,7 @@ function multiply (numberA, numberB) {
 }
 
 function divide (numberA, numberB) {
+  if (numberB === 0) return;
   return numberA / numberB;
 }
 
