@@ -1,29 +1,45 @@
 // determine action based on button pressed
-function processInput (classString, buttonString) {
-  switch (classString) {
-    case "digit":
-      setOperand(buttonString);
+function processInput (string) {
+  switch (string) {
+    case "0":
+    case "1":
+    case "2":
+    case "3":
+    case "4":
+    case "5":
+    case "6":
+    case "7":
+    case "8":
+    case "9":
+      setOperand(string);
       break;
-    case "decimal":
+    case ".":
       setDecimal();
       break;
-    case "negate":
+    case "+/-":
       negateOperand();
       break;
-    case "clear":
+    case "AC":
       clearAll();
       break;
-    case "delete":
+    case "DEL":
+    case "Backspace":
       deleteDigit();
       break;
-    case "operator":
-      setOperator(buttonString);
+    case "+":
+    case "-":
+    case "*":
+    case "/":
+      setOperator(string);
       break;
-    case "percent":
+    case "%":
       setPercent();
       break;
-    case "equals":
+    case "=":
+    case "Enter":
       determineOperation();
+    default:
+      return;
   }
 }
 
@@ -106,6 +122,8 @@ function enumerateResult() {
   for (let i = 0; i < 2; i++) previousOperands[i] = operands[i];
   previousOperator = operator;
 
+  populateUpperDisplay(); // show previous operation in upper display area
+
   // store result as first operand and clear second operand and operator
   operands[0] = operate(operands[0], operands[1], operator);
   operands[1] = "";
@@ -181,16 +199,13 @@ function populateLowerDisplay () {
   lowerDisplay.textContent = outputText;
 }
 
-let operands = ["0", ""]
-let previousOperands = ["", ""];
-let operator = "";
-let previousOperator = "";
-
 const buttons = document.querySelectorAll("#calculator button");
 
+// for mouse input
 buttons.forEach(button => {
   button.addEventListener("mousedown", () => {
-    processInput(button.className, button.innerText);
+    processInput(button.innerText);
+    populateLowerDisplay();
     button.classList.add("pressed"); // for button down animation
   });
 });
@@ -202,8 +217,16 @@ window.addEventListener ("mouseup", () => {
   });
 });
 
-// update upper and lower displays any time anything is clicked
-window.addEventListener("mousedown", populateLowerDisplay);
-window.addEventListener("mousedown", populateUpperDisplay);
+// for keyboard input
+window.addEventListener("keydown", event => {
+  processInput(event.key);
+  populateLowerDisplay();
+  if (event.key === "/") event.preventDefault(); // prevent default find function
+});
+
+let operands = ["0", ""]
+let previousOperands = ["", ""];
+let operator = "";
+let previousOperator = "";
 
 populateLowerDisplay(); // initial display state
