@@ -34,13 +34,14 @@ body {
 .display {
   background: black;
   color: lime;
-  font-family: monospace;
+  font-family: "DotGothic16", monospace;
+  text-shadow: 0px 0px 10px greenyellow;
   display: flex;
   flex-direction: column;
   flex: 0 0 auto;
   width: 335px;
   height: 145px;
-  padding: 10px 20px;
+  padding: 10px 21px;
   border-top: 5px inset #c4c4b0;
   border-left: 5px inset #c4c4b0;
   border-radius: 20px;
@@ -48,7 +49,7 @@ body {
 }
 
 .upper {
-  font-size: 2em;
+  font-size: 1.5em;
   white-space: nowrap;
   overflow: hidden;
   display: flex;
@@ -58,7 +59,7 @@ body {
 }
 
 .lower {
-  font-size: 4em;
+  font-size: 3em;
   white-space: nowrap;
   overflow: hidden;
   display: flex;
@@ -70,11 +71,11 @@ body {
 
 .logo {
   color: yellow;
-  font-family: monospace;
-  font-size: 2em;
-  font-style: italic;
+  font-family: "Michroma", sans-serif;
+  font-size: 1em;
   font-weight: bold;
-  text-shadow: 2px 2px 1px crimson, 1px 1px 4px black;
+  font-style: italic;
+  text-shadow: 1px 1px 1px crimson, 2px 2px 2px black;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -91,7 +92,7 @@ body {
 
 button {
   background: mediumpurple;
-  font-family: sans-serif;
+  font-family: Arial, sans-serif;
   font-size: 1.5em;
   font-weight: bold;
   user-select: none;
