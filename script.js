@@ -72,6 +72,8 @@ function clearAll () {
   previousOperands[0] = "";
   previousOperands[1] = "";
   previousOperator = "";
+  
+  populateUpperDisplay(); // clear upper display
 }
 
 // delete last digit from current operand string
@@ -205,7 +207,7 @@ const buttons = document.querySelectorAll("#calculator button");
 buttons.forEach(button => {
   button.addEventListener("mousedown", () => {
     processInput(button.innerText);
-    populateLowerDisplay();
+    populateLowerDisplay(); // update lower display any time a button is clicked
     button.classList.add("pressed"); // for button down animation
   });
 });
@@ -220,8 +222,8 @@ window.addEventListener ("mouseup", () => {
 // for keyboard input
 window.addEventListener("keydown", event => {
   processInput(event.key);
-  populateLowerDisplay();
-  if (event.key === "/") event.preventDefault(); // prevent default find function
+  populateLowerDisplay(); // update lower display any time a key is pressed
+  if (event.key === "/") event.preventDefault(); // disable default find 
 });
 
 let operands = ["0", ""]
