@@ -186,7 +186,6 @@ let previousOperands = ["", ""];
 let operator = "";
 let previousOperator = "";
 
-const html = document.documentElement;
 const buttons = document.querySelectorAll("#calculator button");
 
 buttons.forEach(button => {
@@ -197,14 +196,14 @@ buttons.forEach(button => {
 });
 
 // for button up animation
-html.addEventListener ("mouseup", () => {
+window.addEventListener ("mouseup", () => {
   buttons.forEach(button => {
     button.classList.remove("pressed");
   });
 });
 
 // update upper and lower displays any time anything is clicked
-html.addEventListener("click", populateLowerDisplay);
-html.addEventListener("click", populateUpperDisplay);
+window.addEventListener("mousedown", populateLowerDisplay);
+window.addEventListener("mousedown", populateUpperDisplay);
 
 populateLowerDisplay(); // initial display state
