@@ -89,7 +89,7 @@ body {
   gap: 5px;
 }
 
-.button {
+button {
   background: #939384;
   font-family: sans-serif;
   font-size: 1.5em;

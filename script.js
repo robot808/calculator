@@ -93,7 +93,7 @@ function operate (stringA, stringB, stringOperator) {
   }
 
   //display error message if operation failed
-  if (!result) return "ERROR!";
+  if (result === undefined) return "ERROR!";
 
   // truncate result if it won't fit in the display
   result = format(result);
@@ -113,7 +113,7 @@ function multiply (numberA, numberB) {
 }
 
 function divide (numberA, numberB) {
-  if (numberB === 0) return;
+  if (numberB === 0) return; // catch division by zero
   return numberA / numberB;
 }
 
@@ -159,7 +159,7 @@ let operator = "";
 let previousOperator = "";
 
 const html = document.documentElement;
-const buttons = document.querySelectorAll(".button");
+const buttons = document.querySelectorAll("#calculator button");
 const digits = document.querySelectorAll(".digit");
 const operators = document.querySelectorAll(".operator");
 const decimalButton = document.querySelector(".decimal");
