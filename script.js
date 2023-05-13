@@ -177,8 +177,11 @@ function divide (numberA, numberB) {
 
 // format output to fit in display
 function format (number) {
-  if (number.toString().length <= 8) return number; // no need to format
-  return number.toPrecision(3);
+  if (number.toString().length <= 12) return number; // no need to format
+  for (i = 12; i > 0; i--) {
+    const numberFormatted = number.toPrecision(i);
+    if (numberFormatted.toString().length <= 12) return numberFormatted;
+  }
 }
 
 //create output string from previous operation and populate to upper display
