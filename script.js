@@ -1,9 +1,37 @@
+// determine action based on button pressed
+function processInput (classString, buttonString) {
+  switch (classString) {
+    case "digit":
+      setOperand(buttonString);
+      break;
+    case "decimal":
+      setDecimal();
+      break;
+    case "negate":
+      negateOperand();
+      break;
+    case "clear":
+      clearAll();
+      break;
+    case "delete":
+      deleteDigit();
+      break;
+    case "operator":
+      setOperator(buttonString);
+      break;
+    case "percent":
+      setPercent();
+      break;
+    case "equals":
+      determineOperation();
+  }
+}
+
 // add clicked digit button's number to current operand string
-function setOperand (event) {
-  const digit = event.target.textContent;
+function setOperand (string) {
   const index = getCurrentOperand();
-  if (operands[index] === "0") operands[index] = digit;
-  else operands[index] += digit;
+  if (operands[index] === "0") operands[index] = string;
+  else operands[index] += string;
 }
 
 // add a decimal point to the current operand
@@ -20,6 +48,16 @@ function negateOperand () {
   operands[index] = (0 - Number(operands[index])).toString();  
 }
 
+// reset calculator state to default
+function clearAll () {
+  operands[0] = "0";
+  operands[1] = "";
+  operator = "";
+  previousOperands[0] = "";
+  previousOperands[1] = "";
+  previousOperator = "";
+}
+
 // delete last digit from current operand string
 function deleteDigit () {
   const index = getCurrentOperand();
@@ -32,9 +70,9 @@ function getCurrentOperand () {
 }
 
 // store operation based on clicked operation button
-function setOperator (event) {
+function setOperator (string) {
   if(operands[1]) determineOperation(); // perform any pending operation first
-  operator = event.target.textContent;
+  operator = string;
 }
 
 function setPercent () {
@@ -143,16 +181,6 @@ function populateLowerDisplay () {
   lowerDisplay.textContent = outputText;
 }
 
-// reset calculator state to default
-function clearAll () {
-  operands[0] = "0";
-  operands[1] = "";
-  operator = "";
-  previousOperands[0] = "";
-  previousOperands[1] = "";
-  previousOperator = "";
-}
-
 let operands = ["0", ""]
 let previousOperands = ["", ""];
 let operator = "";
@@ -160,18 +188,13 @@ let previousOperator = "";
 
 const html = document.documentElement;
 const buttons = document.querySelectorAll("#calculator button");
-const digits = document.querySelectorAll(".digit");
-const operators = document.querySelectorAll(".operator");
-const decimalButton = document.querySelector(".decimal");
-const negateButton = document.querySelector(".negate");
-const deleteButton = document.querySelector(".delete");
-const percentButton = document.querySelector(".percent");
-const equalsButton = document.querySelector(".equals");
-const clearButton = document.querySelector(".clear");
 
-// update upper and lower displays any time anything is clicked
-html.addEventListener("click", populateLowerDisplay);
-html.addEventListener("click", populateUpperDisplay);
+buttons.forEach(button => {
+  button.addEventListener("mousedown", () => {
+    processInput(button.className, button.innerText);
+    button.classList.add("pressed"); // for button down animation
+  });
+});
 
 // for button up animation
 html.addEventListener ("mouseup", () => {
@@ -180,26 +203,8 @@ html.addEventListener ("mouseup", () => {
   });
 });
 
-// for button down animation
-buttons.forEach(button => {
-  button.addEventListener("mousedown", () => {
-    button.classList.add("pressed");
-  });
-});
-
-digits.forEach(digit => {
-  digit.addEventListener("click", setOperand);
-});
-
-operators.forEach(operator => {
-  operator.addEventListener("click", setOperator);
-});
-
-decimalButton.addEventListener("click", setDecimal);
-negateButton.addEventListener("click", negateOperand);
-deleteButton.addEventListener("click", deleteDigit);
-percentButton.addEventListener("click", setPercent);
-equalsButton.addEventListener("click", determineOperation);
-clearButton.addEventListener("click", clearAll);
+// update upper and lower displays any time anything is clicked
+html.addEventListener("click", populateLowerDisplay);
+html.addEventListener("click", populateUpperDisplay);
 
 populateLowerDisplay(); // initial display state
